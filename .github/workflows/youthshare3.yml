@@ -1,0 +1,30 @@
+name: 中青助力3
+
+on:
+  workflow_dispatch:
+  watch:
+    types: started
+  schedule:
+    - cron: '13 8,22 * * *'
+jobs:
+  build:
+    runs-on: ubuntu-latest    
+    steps:
+      - name: Checkout
+        run: |
+          git clone https://github.com/66903202/cxk.git ~/cxk
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: npm install
+        run: |
+          cd ~/cxk
+          npm install
+          npm install cron
+          npm install request
+          npm install md5-node
+      - name: '运行 【youthshare3】'
+        run: |
+          cd ~/cxk   
+          node Task/youthshare3.js
